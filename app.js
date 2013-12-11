@@ -3,14 +3,17 @@
  * Module dependencies.
  */
 
+
 var express = require('express');
-// Routes
-var routes = require('./routes');
+
+var db = require('./models/db');
 
 var http = require('http');
 var path = require('path');
 
 var app = express();
+
+var routes = require('./routes/')(app);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -45,9 +48,6 @@ app.use(function(req, res, next){
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
-// Root route
-app.get('/', routes.index);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
