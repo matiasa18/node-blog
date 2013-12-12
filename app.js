@@ -6,18 +6,18 @@
 
 var express = require('express');
 
-var db = require('./models/db');
+var db = require('./app/models/db');
 
 var http = require('http');
 var path = require('path');
 
 var app = express();
 
-var controllers = require('./controllers/')(app);
+var controllers = require('./app/controllers/')(app);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
 // app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -27,8 +27,8 @@ app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(app.router);
-app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(require('less-middleware')({ src: path.join(__dirname, 'app/public') }));
+app.use(express.static(path.join(__dirname, 'app/public')));
 app.use(function(req, res, next){
   res.status(404);
   // respond with html page
