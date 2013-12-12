@@ -13,7 +13,7 @@ var path = require('path');
 
 var app = express();
 
-var routes = require('./routes/')(app);
+var controllers = require('./controllers/')(app);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
