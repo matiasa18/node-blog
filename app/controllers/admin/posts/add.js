@@ -1,5 +1,9 @@
 module.exports = function(app) {
-  app.get('/admin/blog/add', function(req, res) {
-    res.render('blog/index', {blog_title: "Blog add"});
+  app.get('/admin/posts/add', function(req, res) {
+    res.render('admin/posts/add', {title: 'Add blog post'});
+  });
+
+  app.post('/admin/posts/add', function(req, res) {
+    console.log('Adding post');
   });
 }
