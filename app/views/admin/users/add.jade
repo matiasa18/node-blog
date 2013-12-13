@@ -1,1 +1,15 @@
 extends ../layout.jade
+
+block content
+  form(role='form', action='/admin/users/add', method='post')
+    .form-group 
+      input.form-control(type='text', name='username', placeholder='Enter Username')
+    .form-group 
+      input.form-control(type='text', name='email', placeholder='Enter Email')
+    .form-group 
+      textarea.form-control(name='brief', placeholder='Enter a short brief')
+    .form-group
+      input.form-control(type='password', name='password', placeholder='Password')
+    button.btn.btn-default(type='submit') Submit
+    a(href='/admin/users')
+      button.btn.btn-primary(type='button') Cancel

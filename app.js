@@ -4,12 +4,11 @@
  */
 
 
-var express = require('express');
-
-var db = require('./app/models/db');
-
-var http = require('http');
-var path = require('path');
+var express = require('express'),
+    http = require('http'),
+    path = require('path'),
+    passport = require('passport'),
+    flash = require('connect-flash');
 
 var app = express();
 
@@ -26,6 +25,9 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 app.use(app.router);
 app.use(require('less-middleware')({ src: path.join(__dirname, 'app/public') }));
 app.use(express.static(path.join(__dirname, 'app/public')));
@@ -48,6 +50,8 @@ app.use(function(req, res, next){
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
+var db = require('./app/modules/db');
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
