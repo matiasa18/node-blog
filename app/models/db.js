@@ -23,4 +23,4 @@ process.on('STGINT', function() {
   });
 });
 
-require('./team');
+require('./user');
