@@ -23,9 +23,14 @@ html
                 a(href='/admin/users/add') Add user
               li
                 a(href='/admin/users/') List users
-      if(messages != null)
-        each message in messages
+      if(typeof success_messages != 'undefined')
+        each message in success_messages
           .alert.alert-success.fade
+            button(type='button' class='close' data-dismiss='alert') x
+            span= message
+      if(typeof error_messages != 'undefined')
+        each message in error_messages
+          .alert.alert-info.fade
             button(type='button' class='close' data-dismiss='alert') x
             span= message
       h1= title

@@ -1,21 +1,24 @@
 var passport = require('passport'),
     User = require('../../../models/user'),
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    messages = require('../../../modules/messages');
 
 
 module.exports = function(app) {
   app.get('/admin/users/add', function(req, res) {
-    res.render('admin/users/add', {title: 'Add User'});
+    res.render('admin/users/add', {title: 'Add User', user: new User()});
   });
 
   app.post('/admin/users/add', function(req, res) {
-    User.register(new User({
-        username: req.body.username,
-        brief: req.body.brief,
-        email: req.body.email
-    }), req.body.password, function (err, user) {
+    var user = new User();
+    user.username = (typeof req.body.username === 'undefined')? '' : req.body.username;
+    user.brief = (typeof req.body.brief === 'undefined')? '' : req.body.brief;;
+    user.email = (typeof req.body.email === 'undefined')? '' : req.body.email;
+    User.register(user, req.body.password, function (err) {
+        console.log(err);
         if (err != null) {
-          return res.render('admin/users/add', {user: user});
+          console.log(user);
+          return res.render('admin/users/add', {user: user, error_messages: [err.message]});
         } else {
           req.flash('info', 'Your user has been created!');
           res.redirect('/admin/users');
