@@ -3,11 +3,11 @@ extends ../layout.jade
 block content
   form(role='form', action='/admin/users/add', method='post')
     .form-group 
-      input.form-control(type='text', name='username', placeholder='Enter Username', value='#{user.username}')
+      input.form-control(type='text', name='username', placeholder='Enter Username', value='#{user.username || ""}')
     .form-group 
-      input.form-control(type='text', name='email', placeholder='Enter Email', value='#{user.email}')
+      input.form-control(type='text', name='email', placeholder='Enter Email', value='#{user.email || ""}')
     .form-group 
-      textarea.form-control(name='brief', placeholder='Enter a short brief') #{user.brief}
+      textarea.form-control(name='brief', placeholder='Enter a short brief') #{user.brief || ""}
     .form-group
       input.form-control(type='password', name='password', placeholder='Password')
     button.btn.btn-default(type='submit') Submit
