@@ -11,9 +11,9 @@ module.exports = function(app) {
 
   app.post('/admin/users/add', function(req, res) {
     var user = new User();
-    user.username = (typeof req.body.username === 'undefined')? '' : req.body.username;
-    user.brief = (typeof req.body.brief === 'undefined')? '' : req.body.brief;;
-    user.email = (typeof req.body.email === 'undefined')? '' : req.body.email;
+    user.username = req.body.username;
+    user.brief = req.body.brief;;
+    user.email = req.body.email;
     User.register(user, req.body.password, function (err) {
         console.log(err);
         if (err != null) {
