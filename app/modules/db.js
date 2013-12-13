@@ -1,6 +1,13 @@
 var mongoose = require('mongoose');
-
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var db_url = "mongodb://localhost/node-blog";
+
+// passport config
+var User = require('../models/user');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 mongoose.connect(db_url);
 
@@ -22,5 +29,3 @@ process.on('STGINT', function() {
     process.exit(0);
   });
 });
-
-require('./user');
