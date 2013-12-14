@@ -15,3 +15,11 @@ exports.get_from_passport = function(errors) {
   });
 }
 
+exports.get_from_unique_validator = function(errors) {
+  console.log(errors);
+  errors.foreach(function(item) {
+    if(item.message === 'unique') {
+      return 'There\'s already an object with ' + item.path + ' as ' + item.value + ' defined, please choose another one.';
+    }
+  });
+}
