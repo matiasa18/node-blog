@@ -15,5 +15,7 @@ block content
             td= user.username
             td= user.email
             td= user.brief
+            td
+              a(href="/admin/users/edit/#{user.username}") Edit
   else
     p Nothing to show!

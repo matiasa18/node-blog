@@ -1,7 +1,7 @@
 extends ../layout.jade
 
 block content
-  form(role='form', action='/admin/users/add', method='post')
+  form(role='form', action='#{path}', method='post')
     .form-group 
       input.form-control(type='text', name='username', placeholder='Enter Username', value='#{user.username || ""}')
     .form-group 
