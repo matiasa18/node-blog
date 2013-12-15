@@ -17,7 +17,6 @@ module.exports = function(app) {
       user.username = req.body.username;
       user.email = req.body.email;
       user.brief = req.body.brief;
-      if(req.body.password) user.password = req.body.password;
       user.save(function(err, new_user) {
         if(!err) {
           res.redirect('/admin/users');
