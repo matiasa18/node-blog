@@ -9,12 +9,6 @@ exports.get = function (req, type) {
   }
 }
 
-exports.get_from_passport = function(errors) {
-  errors.forEach(function(error) {
-    console.log(error);
-  });
-}
-
 exports.get_from_model = function(err) {
   console.log(err);
   if(typeof err.errors === 'undefined' && typeof err.message === 'undefined') {
