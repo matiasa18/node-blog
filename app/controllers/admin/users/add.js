@@ -17,9 +17,8 @@ module.exports = function(app) {
     User.register(user, req.body.password, function (err) {
         console.log(err);
         if (err != null) {
-          // Email is already in use?
-          err.message = (err.message === 'Validation failed')? 'A user with the email ' + user.email + ' is already registered, please take another one' : err.message;
-          return res.render('admin/users/form', {user: user, error_messages: [err.message], path: '/admin/users/add'});
+          err = messages.get_from_model(err);
+          return res.render('admin/users/form', {user: user, error_messages: [err], path: '/admin/users/add'});
         } else {
           req.flash('info', 'Your user has been created!');
           res.redirect('/admin/users');
