@@ -8,23 +8,21 @@ var express = require('express'),
     http = require('http'),
     path = require('path'),
     passport = require('passport'),
-    flash = require('connect-flash');
+    flash = require('connect-flash'),
+    passport_module = require('./app/modules/passport');
 
 var app = express();
-
-var controllers = require('./app/controllers/')(app);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
-// app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
-app.use(express.session());
+app.use(express.cookieParser());
+app.use(express.session({secret: 'your secret here'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -51,7 +49,9 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var db = require('./app/modules/db');
+app.all('/admin*', passport_module.ensure_authenticated);
+
+var controllers = require('./app/controllers/')(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

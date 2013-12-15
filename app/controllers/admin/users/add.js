@@ -14,13 +14,14 @@ module.exports = function(app) {
     user.username = req.body.username;
     user.brief = req.body.brief;;
     user.email = req.body.email;
-    User.register(user, req.body.password, function (err) {
+    user.password = req.body.password
+    user.save(function (err) {
         console.log(err);
         if (err != null) {
           err = messages.get_from_model(err);
           return res.render('admin/users/form', {user: user, error_messages: [err], path: '/admin/users/add'});
         } else {
-          req.flash('info', 'Your user has been created!');
+          //req.flash('info', 'Your user has been created!');
           res.redirect('/admin/users');
           res.end();
           return;
