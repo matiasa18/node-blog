@@ -18,13 +18,13 @@ module.exports = function(app) {
       user.email = req.body.email;
       user.brief = req.body.brief;
       if(req.body.password) user.password = req.body.password;
-      user.update(function(err, new_user) {
+      user.save(function(err, new_user) {
         if(!err) {
           res.redirect('/admin/users');
           res.end();
         } else {
-          err.message = (err.message === 'Validation failed')? 'A user with the email ' + user.email + ' is already registered, please take another one' : err.message;
-          return res.render('admin/users/form', {user: user, error_messages: [err.message], path: '/admin/users/edit/' + req.params.username});
+          err = messages.get_from_model(err);
+          return res.render('admin/users/form', {user: user, error_messages: [err], path: '/admin/users/edit/' + req.params.username});
         }
       });
     });
