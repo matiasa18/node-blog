@@ -49,7 +49,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.all('/admin*', passport_module.ensure_authenticated);
+//app.all('/admin*', passport_module.ensure_authenticated);
 
 var controllers = require('./app/controllers/')(app);
 
