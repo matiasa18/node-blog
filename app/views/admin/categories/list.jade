@@ -1,9 +1,10 @@
 ul.list-group
-  li.list-group-item
-    .radio
-      label
-        input(type='radio', class='radio', name='parent_id' value='0') 
-        = 'No category'
+  if inputs == true
+    li.list-group-item
+      .radio
+        label
+          input(type='radio', class='radio', name='parent_id' value='0')
+          = 'No category'
   mixin make_list(categories, edit)
     each category in categories
       li.list-group-item
@@ -14,7 +15,8 @@ ul.list-group
       li.list-group-item
         .radio
           label
-            input(type='radio', name='parent_id', value='#{category._id}')
+            if inputs == true
+              input(type='radio', name='parent_id', value='#{category._id}')
             = category.name
       if category.categories.length
         ul
