@@ -4,8 +4,10 @@ var mongoose = require('mongoose'),
 
 var category_schema = new mongoose.Schema({
   name: {required: true, type: String},
-  parent: {type: object_id, ref: 'Category' },
-  categories: [ {type: object_id, ref: 'Category'} ]
+  parent: {type: Number, ref: 'Category' },
+  categories: [ {type: Number, ref: 'Category'} ]
 });
+
+category_schema.plugin(auto_increment.plugin, 'Category');
 
 var Category = module.exports = mongoose.model('Category', category_schema);
