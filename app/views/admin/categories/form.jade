@@ -1,0 +1,13 @@
+extends ../layout.jade
+
+
+block content
+  form(role='form', action='#{path}', method='post')
+    .form-group
+      h4 Parent Category
+      include list
+    .form-group 
+      input.form-control(type='text', name='name', placeholder='Enter name', value='#{category.name || ""}')
+    button.btn.btn-default(type='submit') Submit
+    a(href='/admin/users')
+      button.btn.btn-primary(type='button') Cancel

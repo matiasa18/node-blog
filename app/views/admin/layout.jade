@@ -22,6 +22,14 @@ html
               li
                 a(href='/admin/users/') List users
           li
+            a(class='dropdown-toggle' data-toggle='dropdown' href='#') Categories 
+              b(class='caret')
+            ul(class='dropdown-menu')
+              li
+                a(href='/admin/categories/add') Add category
+              li
+                a(href='/admin/categories/') List categories
+          li
             a(href='/admin/logout') Logout
       if(typeof success_messages != 'undefined')
         each message in success_messages

@@ -1,4 +1,5 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    auto_increment = require('mongoose-auto-increment');
 
 exports.mongoose = mongoose;
 
@@ -9,12 +10,14 @@ var uristring =
 
 var mongo_options = { db: { safe: true }};
 
-mongoose.connect(uristring, mongo_options, function (err, res) {
+var connection = mongoose.connect(uristring, mongo_options, function (err, res) {
   if (err) { 
     console.log ('ERROR connecting to: ' + uristring + '. ' + err);
   } else {
     console.log ('Successfully connected to: ' + uristring);
   }
 });
+
+auto_increment.initialize(connection);
 
 var User = require('../models/user');

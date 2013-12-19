@@ -1,0 +1,23 @@
+ul.list-group
+  li.list-group-item
+    .radio
+      label
+        input(type='radio', class='radio', name='parent_id' value='0') 
+        = 'No category'
+  mixin make_list(categories, edit)
+    each category in categories
+      li.list-group-item
+        .radio
+          label
+            input(type='radio', name='parent_id' value='#{category._id}')
+            = category.name
+  if categories.length
+    each category in categories
+      li.list-group-item
+        .radio
+          label
+            input(type='radio', name='parent_id', value='#{category._id}')
+            = category.name
+      if category.categories.length
+        ul
+          +make_list(category.categories, edit)
