@@ -8,9 +8,7 @@ ul.list-group
     each category in categories
       li.list-group-item
         .radio
-          label
-            input(type='radio', name='parent_id' value='#{category._id}')
-            = category.name
+          = category.name
   if categories.length
     each category in categories
       li.list-group-item
