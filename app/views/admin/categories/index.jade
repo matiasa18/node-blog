@@ -1,4 +1,8 @@
 extends ../layout
 
 block content
-  include list
+  if categories.length
+    include list
+  else
+    h4
+      = 'No categories to show'
