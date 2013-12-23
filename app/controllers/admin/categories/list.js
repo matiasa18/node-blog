@@ -7,8 +7,7 @@ var passport = require('passport'),
 module.exports = function(app) {
   app.get('/admin/categories/', function(req, res) {
   Category.make_tree(function(categories) {
-    console.log(categories);
-      res.render('admin/categories/index', {title: 'List Categories', success_messages: messages.get(req, 'info'), categories: categories, edit: false, inputs: false});
+    res.render('admin/categories/index', {title: 'List Categories', success_messages: messages.get(req, 'info'), categories: categories, edit: false, inputs: false});
     });
   });
 }
