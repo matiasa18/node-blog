@@ -1,12 +1,10 @@
-var passport = require('passport'),
-    Category = require('../../../models/category'),
+var Category = require('../../../models/category'),
     messages = require('../../../modules/messages');
 
 
 module.exports = function(app) {
   app.get('/admin/categories/add', function(req, res) {
-    Category.find({parent: null}).populate('categories').exec(function(err, categories) {
-      if (err) throw err;
+    Category.make_tree(function(categories) {
       res.render('admin/categories/form', {title: 'Add Category', category: new Category(), path: '/admin/categories/add', categories: categories, edit: false, inputs: true});  
     });
     
@@ -22,12 +20,12 @@ module.exports = function(app) {
           parent_category.categories.push(category);
           parent_category.save(function(err) {
             if (err) throw err;
-            res.redirect('/admin/categories');
+            req.flash('info', 'Category saved');
+            res.redirect('/admin/categories/');
             res.end();
             return;
           });
         });
-        
       });
     } else {
       var category = new Category({name: req.body.name, parent: null});
@@ -36,7 +34,8 @@ module.exports = function(app) {
         err = messages.get_from_model(err);
         return res.render('admin/categories/form', {category: category, error_messages: [err], path: '/admin/categories/add'});
       } else {
-        res.redirect('/admin/categories');
+        req.flash('info', 'Category saved');
+        res.redirect('/admin/categories/');
         res.end();
         return;
       }

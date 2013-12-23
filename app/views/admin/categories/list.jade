@@ -9,7 +9,13 @@ ul.list-group
     each category in categories
       li.list-group-item
         .radio
-          = category.name
+          label
+            if inputs == true
+              input(type='radio', name='parent_id', value='#{category._id}')
+            = category.name
+      if category.categories && category.categories.length
+        ul
+          +make_list(category.categories, edit)
   if categories.length
     each category in categories
       li.list-group-item
@@ -18,6 +24,6 @@ ul.list-group
             if inputs == true
               input(type='radio', name='parent_id', value='#{category._id}')
             = category.name
-      if category.categories.length
+      if category.categories && category.categories.length
         ul
           +make_list(category.categories, edit)
