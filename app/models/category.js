@@ -31,6 +31,7 @@ category_schema.static('make_tree', function(callback) {
         if (categories[y].parent === parents_array[x]._id && parents_array[x].parent != null) {
           console.log('adding ' + categories[y].name + ' to ' + parents_array[x].name);
           parents_array[x].categories.push({
+            _id: categories[y]._id,
             name: categories[y].name,
             parent: categories[y].parent,
             categories: categories[y].categories
