@@ -1,5 +1,6 @@
 var fs = require('fs'),
-    required_files = [];
+    required_files = [],
+    colors = require('colors');
 
 
 module.exports = function(app) {
@@ -16,7 +17,7 @@ module.exports = function(app) {
       // Check if it's a directory
       if (fs.lstatSync(next_directory).isDirectory()) {
         // We require it recursively
-        console.log('Reading directory ' + next_directory);
+        console.log(('Reading directory ' + next_directory).green);
         recursive_require(next_directory.substr(0, next_directory.lastIndexOf('\\')), base_dir, app);
       } else {
         // We require all (except the index.js file if the var is set to true) js files on folder

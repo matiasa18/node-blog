@@ -7,9 +7,9 @@
 var express = require('express'),
     http = require('http'),
     path = require('path'),
-    passport = require('passport'),
+    orm = require('orm'),
     flash = require('connect-flash'),
-    passport_module = require('./app/modules/passport');
+    colors = require('colors');
 
 var app = express();
 
@@ -23,9 +23,13 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser());
 app.use(express.session({secret: 'your secret here'}));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(flash());
+app.use(orm.express("mysql://root:33691254@localhost/test1", {
+  define: function (db, models, next) {
+    console.log('hola');  
+    next();
+  }
+}));
 app.use(app.router);
 app.use(require('less-middleware')({ src: path.join(__dirname, 'app/public') }));
 app.use(express.static(path.join(__dirname, 'app/public')));
@@ -54,5 +58,5 @@ if ('development' == app.get('env')) {
 var controllers = require('./app/controllers/')(app);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log(('Express server listening on port ' + app.get('port')).green);
 });
