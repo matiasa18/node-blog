@@ -9,6 +9,9 @@
     "express": "3.4.6",
     "jade": "*",
     "less-middleware": "*",
-    "colors": "*"
+    "colors": "*",
+    "connect-flash": "~0.1.1",
+    "mysql": "~2.0.0-rc2",
+    "orm": "~2.1.3"
   }
 }

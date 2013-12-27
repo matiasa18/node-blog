@@ -1,5 +1,4 @@
-var flash = require('connect-flash'),
-    passport = require('passport');
+var flash = require('connect-flash');
 
 exports.get = function (req, type) {
   if(typeof req['flash'] === 'undefined') {
